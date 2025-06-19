@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
-    chart: bitnami/mariadb
+    chart: mariadb
     targetRevision: 20.5.9
   destination:
     server: https://kubernetes.default.svc
