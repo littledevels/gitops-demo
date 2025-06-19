@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app01
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: app01
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/littledevels/gitops-demo.git
+    targetRevision: main
+    path: app01/webserver
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: web
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: false
+      allowEmpty: false 
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 5
+      backoff: 
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
