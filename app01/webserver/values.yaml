@@ -9,7 +9,7 @@ image:
   repository: nginx
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.27.5"
+  tag: "1.27.5-kostas"
 
 imagePullSecrets: []
 nameOverride: ""

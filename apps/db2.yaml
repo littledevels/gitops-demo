@@ -1,25 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app01
+  name: db2
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: app01
+    name: db2
 spec:
   project: default
   source:
-    repoURL: https://github.com/littledevels/gitops-demo.git
-    targetRevision: main
-    path: app01/webserver
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: mariadb
+    targetRevision: 20.5.9
   destination:
     server: https://kubernetes.default.svc
-    namespace: web
+    namespace: newdb
   syncPolicy:
     automated: 
       prune: true
-      selfHeal: true
+      selfHeal: false
       allowEmpty: false 
     syncOptions:
       - Validate=false
@@ -32,4 +32,4 @@ spec:
       backoff: 
         duration: 5s
         factor: 2
-        maxDuration: 1m
+        maxDuration: 3m
